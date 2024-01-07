@@ -1,2 +1,2 @@
 # Competitive Programming
-My competitive programming repository containing my solutions to various contest problems.
+A repository containing my solutions to various programming problems from contests such as Codeforces, ICPC (International Collegiate Programming Competition), USACO (USA Computing Olympiad), etc.
