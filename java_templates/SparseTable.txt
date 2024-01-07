@@ -1,0 +1,34 @@
+static final int MAXN = 100005;
+static int[] log = new int[MAXN + 1];
+log[1] = 0;
+for (int i = 2; i <= MAXN; i++) {
+    log[i] = log[i / 2] + 1;
+}
+
+static class SparseTable {
+    int K = 25;
+    int N;
+    int[][] min = new int[MAXN][K + 1];
+    int[][] max = new int[MAXN][K + 1];
+    SparseTable(int[] a) {
+        N = a.length;
+        for (int i = 0; i < N; i++) {
+            min[i][0] = a[i];
+            max[i][0] = a[i];
+        }
+        for (int j = 1; j <= K; j++) {
+            for(int i = 0; i + (1 << j) <= N; i++) {
+                min[i][j] = Math.min(min[i][j - 1], min[i + (1 << (j - 1))][j - 1]);
+                max[i][j] = Math.max(max[i][j - 1], max[i + (1 << (j - 1))][j - 1]);
+            }
+        }
+    }
+    int min(int l, int r) {
+        int j = log[r - l + 1];
+        return Math.min(min[l][j], min[r - (1 << j) + 1][j]);
+    }
+    int max(int l, int r) {
+        int j = log[r - l + 1];
+        return Math.max(max[l][j], max[r - (1 << j) + 1][j]);
+    }
+}

@@ -1,0 +1,46 @@
+static class Segtree {
+    int[] a, t;
+    Segtree(int[] aa) {
+        a = aa;
+        t = new int[a.length * 4];
+        construct(1, 0, a.length - 1);
+    }
+
+    void construct(int v, int l, int r) {
+        if (l == r) {
+            t[v] = a[l];
+        } else {
+            int m = (l + r) / 2;
+            construct(v * 2, l, m);
+            construct(v * 2 + 1, m + 1, r);
+            t[v] = Math.min(t[v * 2], t[v * 2 + 1]);
+        }
+    }
+    
+    int min(int v, int l, int r, int ql, int qr) {
+        if (ql > qr) {
+            return Integer.MAX_VALUE;
+        } else if (l == ql && r == qr) {
+            return t[v];
+        } else {
+            int m = (l + r) / 2;
+            int left = min(v * 2, l, m, ql, Math.min(m, qr));
+            int right = min(v * 2 + 1, m + 1, r, Math.max(ql, m + 1), qr);
+            return Math.min(left, right);
+        }
+    }
+
+    void update(int v, int l, int r, int i, int add) {
+        if (l == r) {
+            t[v] += add;
+            return;
+        }
+        int m = (l + r) / 2;
+        if (i <= m) {
+            update(v * 2, l, m, i, add);
+        } else {
+            update(v * 2 + 1, m + 1, r, i, add);
+        }
+        t[v] = Math.min(t[v * 2], t[v * 2 + 1]);
+    }
+}
