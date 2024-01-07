@@ -1,2 +1,2 @@
-# competitive_programming_public
+# Competitive Programming
 My competitive programming repository containing my solutions to various contest problems.
