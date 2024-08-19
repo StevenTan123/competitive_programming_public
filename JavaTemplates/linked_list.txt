@@ -1,0 +1,29 @@
+static class DoublyLinkedList {
+    Node head, tail;
+    DoublyLinkedList(Node h) {
+        head = h;
+        tail = h;
+    }
+    // remove node x
+    void remove(Node x) {
+        if (x.prev != null) {
+            x.prev.next = x.next;
+        }
+        if (x.next != null) {
+            x.next.prev = x.prev;
+        }
+    }
+    // add node x to head
+    void add(Node x) {
+        head.prev = x;
+        x.next = head;
+        head = x;
+    }
+}
+static class Node {
+    int val;
+    Node prev, next;
+    Node(int v) {
+        val = v;
+    }
+}
